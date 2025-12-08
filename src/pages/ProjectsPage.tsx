@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "../clients/api";
-import { Link } from "react-router-dom";
 import type { Project } from "./types";
 import ProjectAddForm from "../components/projects/ProjectAddForm";
+import ProjectList from "../components/projects/ProjectList";
 
 export default function ProjectsPage() {
 	const [projects, setProjects] = useState<Project[]>([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
-
-	// const [name, setName] = useState("");
-	// const [description, seDescription] = useState("");
 
 	useEffect(() => {
 		const fetchProjects = async () => {
@@ -57,22 +54,8 @@ export default function ProjectsPage() {
 
 			<ProjectAddForm createProject={createProject} />
 			{error && <div>{error}</div>}
-			<div className="w-full grid grid-cols-1 md:grid-cols-3 gap-2 mt-10">
-				{projects &&
-					projects.map((project) => (
-						<div
-							key={project._id}
-							className="text-white flex flex-col gap-4 border border-red-500 rounded-sm p-2">
-							<h1>{project.name}</h1>
-							<p>{project.description}</p>
-							<Link
-								to={`/projects/${project._id}`}
-								className="mt-auto bg-sky-500 rounded text-center">
-								See Project
-							</Link>
-						</div>
-					))}
-			</div>
+
+			<ProjectList projects={projects} />
 		</div>
 	);
 }
