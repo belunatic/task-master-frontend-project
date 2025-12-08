@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-export default function ProjectAddForm({ createProject }) {
+interface ProjectAddFormProps {
+	createProject: (name: string, description: string) => void;
+}
+
+export default function ProjectAddForm({ createProject }: ProjectAddFormProps) {
 	const [name, setName] = useState("");
 	const [description, seDescription] = useState("");
 	const [error, setError] = useState({ name: false, description: false });
