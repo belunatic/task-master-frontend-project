@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 
 interface ProjectListProps {
 	projects: Project[];
+	editProject: (id: string, name: string, description: string) => void;
 }
 
-export default function ProjectList({ projects }: ProjectListProps) {
+export default function ProjectList({
+	projects,
+	editProject,
+}: ProjectListProps) {
 	return (
 		<div className="w-full grid grid-cols-1 md:grid-cols-3 gap-2 mt-10">
 			{projects &&
@@ -20,6 +24,14 @@ export default function ProjectList({ projects }: ProjectListProps) {
 							className="mt-auto bg-sky-500 rounded text-center cursor-pointer">
 							See Project
 						</Link>
+						<button
+							type="button"
+							onClick={() =>
+								editProject(project._id, project.name, project.description)
+							}
+							className="mt-auto bg-green-500 rounded text-center cursor-pointer">
+							Edit
+						</button>
 					</div>
 				))}
 		</div>
