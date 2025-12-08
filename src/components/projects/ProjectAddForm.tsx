@@ -28,7 +28,7 @@ export default function ProjectAddForm({ createProject }: ProjectAddFormProps) {
 			<input
 				type="text"
 				name="project-name"
-				className="border"
+				className="border px-2 py-1"
 				value={name}
 				onChange={(e) => setName(e.target.value)}
 			/>
@@ -37,7 +37,7 @@ export default function ProjectAddForm({ createProject }: ProjectAddFormProps) {
 			<input
 				type="text"
 				name="project-description"
-				className="border"
+				className="border px-2 py-1"
 				value={description}
 				onChange={(e) => seDescription(e.target.value)}
 			/>
