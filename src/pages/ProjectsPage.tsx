@@ -73,6 +73,7 @@ export default function ProjectsPage() {
 				})
 			);
 			console.log(res.data);
+			setShowEditForm(false);
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			console.log(error);
