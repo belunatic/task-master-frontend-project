@@ -23,7 +23,7 @@ export default function ProjectAddForm({ createProject }: ProjectAddFormProps) {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className=" text-white border p-2 h-50 mt-10 flex flex-col gap-2 rounded">
+			className=" text-white border p-2 h-full mt-10 flex flex-col gap-2 rounded py-4">
 			<label htmlFor="project-name">Project Name: </label>
 			<input
 				type="text"
@@ -47,7 +47,7 @@ export default function ProjectAddForm({ createProject }: ProjectAddFormProps) {
 			<input
 				type="submit"
 				value="Create Project"
-				className="mt-auto bg-sky-500 rounded"
+				className="mt-auto bg-sky-500 rounded cursor-pointer"
 			/>
 		</form>
 	);
