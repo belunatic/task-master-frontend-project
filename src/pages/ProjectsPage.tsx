@@ -10,7 +10,7 @@ export default function ProjectsPage() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 
-	//edit form state
+	//form state
 	const [editId, setEditId] = useState("");
 	const [editName, setEditName] = useState("");
 	const [editDescription, setEditDescription] = useState("");
@@ -133,7 +133,7 @@ export default function ProjectsPage() {
 		<div>
 			<div className="flex justify-between items-center mt-10">
 				<h1 className="w-full md:w-3/4 text-3xl font-bold text-white">
-					Projects Page
+					Projects
 				</h1>
 				<button
 					onClick={openAddForm}
