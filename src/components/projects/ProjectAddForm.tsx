@@ -2,11 +2,15 @@ import { useState } from "react";
 
 interface ProjectAddFormProps {
 	createProject: (name: string, description: string) => void;
+	closeAddForm: () => void;
 }
 
-export default function ProjectAddForm({ createProject }: ProjectAddFormProps) {
+export default function ProjectAddForm({
+	createProject,
+	closeAddForm,
+}: ProjectAddFormProps) {
 	const [name, setName] = useState("");
-	const [description, seDescription] = useState("");
+	const [description, setDescription] = useState("");
 	const [error, setError] = useState({ name: false, description: false });
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,6 +22,13 @@ export default function ProjectAddForm({ createProject }: ProjectAddFormProps) {
 			return setError((prev) => ({ ...prev, description: true }));
 		}
 		createProject(name, description);
+	};
+
+	//cancel the add form
+	const handleCloseAddForm = () => {
+		setName("");
+		setDescription("");
+		closeAddForm();
 	};
 
 	return (
@@ -39,7 +50,7 @@ export default function ProjectAddForm({ createProject }: ProjectAddFormProps) {
 				name="project-description"
 				className="border px-2 py-1"
 				value={description}
-				onChange={(e) => seDescription(e.target.value)}
+				onChange={(e) => setDescription(e.target.value)}
 			/>
 			{error.description && (
 				<p className="text-red-500 text-sm">Invalid description</p>
@@ -48,6 +59,12 @@ export default function ProjectAddForm({ createProject }: ProjectAddFormProps) {
 				type="submit"
 				value="Create Project"
 				className="mt-auto bg-sky-500 rounded cursor-pointer"
+			/>
+			<input
+				type="button"
+				value="Cancel"
+				className="mt-auto bg-green-500 rounded cursor-pointer"
+				onClick={handleCloseAddForm}
 			/>
 		</form>
 	);
