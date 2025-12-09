@@ -72,7 +72,7 @@ export default function ProjectList({
 									</button>
 									<button
 										className="bg-green-500 p-2 w-full cursor-pointer"
-										onClick={() => closeConfirmBox}>
+										onClick={closeConfirmBox}>
 										No
 									</button>
 								</div>
