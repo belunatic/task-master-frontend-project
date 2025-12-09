@@ -53,7 +53,7 @@ export default function ProjectsPage() {
 		}
 	};
 
-	//update new Project
+	//update Project
 	const updateProject = async (
 		id: string,
 		name: string,
@@ -74,6 +74,22 @@ export default function ProjectsPage() {
 			);
 			console.log(res.data);
 			setShowEditForm(false);
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (error: any) {
+			console.log(error);
+			setError(error.message);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	//update new Project
+	const deleteProject = async (id: string) => {
+		try {
+			setLoading(true);
+			const res = await apiClient.delete(`/api/projects/${id}`);
+			setProjects((prev) => prev.filter((project) => project._id !== id));
+			console.log(res.data);
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			console.log(error);
@@ -118,7 +134,11 @@ export default function ProjectsPage() {
 					closeEditForm={closeEditForm}
 				/>
 			)}
-			<ProjectList projects={projects} editProject={editProject} />
+			<ProjectList
+				projects={projects}
+				editProject={editProject}
+				deleteProject={deleteProject}
+			/>
 		</div>
 	);
 }
