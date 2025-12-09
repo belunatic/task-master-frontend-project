@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { apiClient } from "../clients/api";
 import { useParams } from "react-router-dom";
 import type { Project } from "./types";
+import TasksDashboard from "../components/tasks/TasksDashboard";
 
 export default function ProjectDetailsPage() {
 	const [project, setProject] = useState<Project | null>(null);
@@ -40,6 +41,8 @@ export default function ProjectDetailsPage() {
 				<div className="text-3xl">{project?.name}</div>
 				<div className="text-xl">{project?.description}</div>
 			</div>
+
+			<TasksDashboard projectId={projectId} />
 		</div>
 	);
 }
