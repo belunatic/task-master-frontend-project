@@ -3,3 +3,5 @@ export interface Project {
 	description: string;
 	_id: string;
 }
+
+export type Status = "todo" | "in-progress" | "done";
