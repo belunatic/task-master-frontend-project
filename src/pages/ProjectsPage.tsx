@@ -15,6 +15,7 @@ export default function ProjectsPage() {
 	const [editName, setEditName] = useState("");
 	const [editDescription, setEditDescription] = useState("");
 	const [showEditForm, setShowEditForm] = useState(false);
+	const [showAddForm, setShowAddForm] = useState(false);
 
 	useEffect(() => {
 		const fetchProjects = async () => {
@@ -116,13 +117,36 @@ export default function ProjectsPage() {
 		setShowEditForm(false);
 	};
 
+	const openAddForm = () => {
+		//in case the edit form is open, close and clear it.
+		closeEditForm();
+		setShowAddForm(true);
+	};
+
+	const closeAddForm = () => {
+		setShowAddForm(false);
+	};
+
 	if (loading) return <div className="text-2xl text-white">Loading</div>;
 
 	return (
 		<div>
-			<h1 className="text-3xl font-bold text-white">Projects Page</h1>
-
-			<ProjectAddForm createProject={createProject} />
+			<div className="flex justify-between items-center mt-10">
+				<h1 className="w-full md:w-3/4 text-3xl font-bold text-white">
+					Projects Page
+				</h1>
+				<button
+					onClick={openAddForm}
+					className="bg-sky-500 text-white p-2 w-full cursor-pointer md:w-1/4 rounded-sm">
+					Add Project
+				</button>
+			</div>
+			{showAddForm && (
+				<ProjectAddForm
+					createProject={createProject}
+					closeAddForm={closeAddForm}
+				/>
+			)}
 			{error && <div>{error}</div>}
 
 			{showEditForm && (
