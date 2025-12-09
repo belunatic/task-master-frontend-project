@@ -39,7 +39,7 @@ export default function ProjectList({
 					<div
 						key={project._id}
 						className="text-white flex flex-col gap-4 border border-red-500 rounded-sm p-2">
-						<h1>{project.name}</h1>
+						<h1 className="text-md font-semibold">{project.name}</h1>
 						<p>{project.description}</p>
 						<Link
 							to={`/projects/${project._id}`}
