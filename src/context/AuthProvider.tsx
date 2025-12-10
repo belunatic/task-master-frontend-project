@@ -82,7 +82,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 		password: string
 	) => {};
 
-	const logOut = () => {};
+	const logOut = () => {
+		setUser(null);
+		setToken(null);
+		localStorage.removeItem("user");
+		localStorage.removeItem("token");
+	};
 
 	return (
 		<AuthContext.Provider
