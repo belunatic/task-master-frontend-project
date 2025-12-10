@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 interface AuthContextType {
 	user: User | null;
 	setUser: (user: User) => void;
-	logIn: (email: string, password: string) => void;
+	logIn: (user: User, token: string) => void;
 	register: (username: string, email: string, password: string) => void;
 	logOut: () => void;
 	token: string | null;
@@ -84,15 +84,15 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 		IsTokenExpire();
 	}, [token]);
 
-	const logIn = async (email: string, password: string) => {
+	const logIn = async (user: User, token: string) => {
 		try {
-			const res = await apiClient.post("/api/users/login", { email, password });
-			//set token and user
-			setToken(res.data.token);
-			setUser(res.data.dbUser);
+			// const res = await apiClient.post("/api/users/login", { email, password });
+			// //set token and user
+			// setToken(res.data.token);
+			// setUser(res.data.dbUser);
 			//save the locally
-			localStorage.setItem("token", JSON.stringify(res.data.token));
-			localStorage.setItem("user", JSON.stringify(res.data.dbUser));
+			localStorage.setItem("token", JSON.stringify(token));
+			localStorage.setItem("user", JSON.stringify(user));
 			apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 		} catch (error) {
 			console.log(error);
@@ -107,9 +107,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 		try {
 			console.log({ username, email, password });
 			await apiClient.post("/api/users/register", {
+				username,
 				email,
 				password,
-				username,
 			});
 		} catch (error) {
 			console.log(error);

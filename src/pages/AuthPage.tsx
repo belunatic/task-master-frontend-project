@@ -12,7 +12,7 @@ function AuthPage() {
 	const [loading, setLoading] = useState(false);
 
 	//context
-	const { logIn, register } = useContext(AuthContext);
+	const { logIn, register, setToken, setUser } = useContext(AuthContext);
 
 	//navigation
 	const navigate = useNavigate();
@@ -24,15 +24,17 @@ function AuthPage() {
 
 			setLoading(true);
 
-			// api call here
-			await logIn(email, password);
+			const res = await apiClient.post("/api/users/login", { email, password });
+			//set token and user
+			setToken(res.data.token);
+			setUser(res.data.dbUser);
+			await logIn(res.data.dbUser, res.data.token);
 			navigate("/projects");
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
-			console.error(error.message);
-
-			setError(error.message);
+			console.error(error.response.data.message);
+			setError(error.response.data.message);
 		} finally {
 			setLoading(false);
 		}
