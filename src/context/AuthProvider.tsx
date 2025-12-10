@@ -61,7 +61,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 					//get the current time in second
 					const dateNow = Math.floor(new Date().getTime() / 1000);
 					//compare the time
-					if (decodedToken?.exp > dateNow) {
+					if (decodedToken?.exp ?? 0 > dateNow) {
 						//then set the Authorization header
 						apiClient.defaults.headers.common[
 							"Authorization"

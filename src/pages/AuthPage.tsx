@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "../context/AuthProvider";
+import React, { useState } from "react";
 import { apiClient } from "../clients/api";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/useAuth";
 
 function AuthPage() {
 	const [showRegister, setShowRegister] = useState(false);
@@ -17,7 +17,7 @@ function AuthPage() {
 	});
 
 	//context
-	const { logIn, register, setToken, setUser } = useContext(AuthContext);
+	const { logIn, setToken, setUser } = useAuth();
 
 	//navigation
 	const navigate = useNavigate();

@@ -42,7 +42,7 @@ export default function ProjectDetailsPage() {
 				<div className="text-xl">{project?.description}</div>
 			</div>
 
-			<TasksDashboard projectId={projectId} />
+			<TasksDashboard projectId={projectId ?? ""} />
 		</div>
 	);
 }
