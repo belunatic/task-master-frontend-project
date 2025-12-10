@@ -1,25 +1,33 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthProvider";
+import { apiClient } from "../clients/api";
+import { useNavigate } from "react-router-dom";
 
 function AuthPage() {
 	const [showRegister, setShowRegister] = useState(true);
-
 	const [username, setUsername] = useState("");
-
 	const [email, setEmail] = useState("");
-
 	const [password, setPassword] = useState("");
-
 	const [error, setError] = useState("");
-
 	const [loading, setLoading] = useState(false);
 
-	const handleLogin = async () => {
+	//context
+	const { setUser, token, user, setToken, logIn } = useContext(AuthContext);
+
+	//navigation
+	const navigate = useNavigate();
+
+	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		try {
+			e.preventDefault();
 			setError("");
 
 			setLoading(true);
 
 			// api call here
+			await logIn(email, password);
+			console.log(token, user);
+			navigate("/projects");
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
@@ -145,7 +153,7 @@ function AuthPage() {
 
 					<input
 						type="submit"
-						value="Register"
+						value="Login"
 						className="border py-2 px-4 rounded"
 					/>
 
