@@ -12,7 +12,7 @@ function AuthPage() {
 	const [loading, setLoading] = useState(false);
 
 	//context
-	const { setUser, token, user, setToken, logIn } = useContext(AuthContext);
+	const { logIn } = useContext(AuthContext);
 
 	//navigation
 	const navigate = useNavigate();
@@ -26,7 +26,6 @@ function AuthPage() {
 
 			// api call here
 			await logIn(email, password);
-			console.log(token, user);
 			navigate("/projects");
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

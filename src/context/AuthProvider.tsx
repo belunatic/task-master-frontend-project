@@ -51,6 +51,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
 	useEffect(() => {
 		try {
+			//check if the token is valid
+			//then set the Authorization header
 			if (token) {
 				apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 			}
