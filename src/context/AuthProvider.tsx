@@ -1,7 +1,8 @@
 import { createContext, useState, useEffect } from "react";
-
+import { jwtDecode } from "jwt-decode";
 import type { User } from "../types";
 import { apiClient } from "../clients/api";
+import { useNavigate } from "react-router-dom";
 
 interface AuthContextType {
 	user: User | null;
@@ -21,8 +22,10 @@ interface AuthProviderProps {
 }
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-	// Check if there is a token in localStorage and set them in state
+	//navigation
+	const navigate = useNavigate();
 
+	// Check if there is a token in localStorage and set them in state
 	const [user, setUser] = useState<User | null>(() => {
 		try {
 			const value = localStorage.getItem("user");
@@ -50,15 +53,35 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 	//check for login user
 
 	useEffect(() => {
-		try {
-			//check if the token is valid
-			//then set the Authorization header
-			if (token) {
-				apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+		const IsTokenExpire = async () => {
+			try {
+				if (token) {
+					//check if the token is valid
+					const decodedToken = jwtDecode(token);
+					//get the current time in second
+					const dateNow = Math.floor(new Date().getTime() / 1000);
+					//compare the time
+					if (decodedToken?.exp > dateNow) {
+						//then set the Authorization header
+						apiClient.defaults.headers.common[
+							"Authorization"
+						] = `Bearer ${token}`;
+						console.log("hello");
+						navigate("/projects");
+					} else {
+						setToken(null);
+						setUser(null);
+						localStorage.removeItem("user");
+						localStorage.removeItem("token");
+						console.log("hello remove");
+					}
+				}
+			} catch (error) {
+				console.error(error);
 			}
-		} catch (error) {
-			console.error(error);
-		}
+		};
+
+		IsTokenExpire();
 	}, [token]);
 
 	const logIn = async (email: string, password: string) => {
@@ -87,6 +110,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 		setToken(null);
 		localStorage.removeItem("user");
 		localStorage.removeItem("token");
+		navigate("/");
 	};
 
 	return (

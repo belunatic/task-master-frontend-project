@@ -4,7 +4,7 @@ import { apiClient } from "../clients/api";
 import { useNavigate } from "react-router-dom";
 
 function AuthPage() {
-	const [showRegister, setShowRegister] = useState(true);
+	const [showRegister, setShowRegister] = useState(false);
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
