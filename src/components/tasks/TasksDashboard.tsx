@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "../../clients/api";
 import TaskAddForm from "./TaskAddForm";
-import type { Tasks, TasksDashboardProps } from "../../pages/types";
+import type { Status, Tasks, TasksDashboardProps } from "../../pages/types";
 import TaskList from "./TaskList";
+import TaskEditForm from "./TaskEditForm";
 
 export default function TasksDashboard({ projectId }: TasksDashboardProps) {
 	const [tasks, setTasks] = useState<Tasks[]>([]);
@@ -10,6 +11,10 @@ export default function TasksDashboard({ projectId }: TasksDashboardProps) {
 	const [error, setError] = useState("");
 
 	//form state
+	const [editId, setEditId] = useState("");
+	const [editName, setEditName] = useState("");
+	const [editStatus, setEditStatus] = useState<Status>("todo");
+	const [editDescription, setEditDescription] = useState("");
 	const [showEditForm, setShowEditForm] = useState(false);
 	const [showAddForm, setShowAddForm] = useState(false);
 
@@ -56,9 +61,63 @@ export default function TasksDashboard({ projectId }: TasksDashboardProps) {
 		}
 	};
 
+	//update Task
+	const updateTask = async (
+		id: string,
+		name: string,
+		description: string,
+		status: Status
+	) => {
+		try {
+			setLoading(true);
+			const res = await apiClient.put(`/api/tasks/${id}`, {
+				name,
+				description,
+			});
+			setTasks((prev) =>
+				prev.map((tasks) => {
+					return tasks._id === id
+						? { ...tasks, name, description, status }
+						: tasks;
+				})
+			);
+			console.log(res.data);
+			setShowEditForm(false);
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (error: any) {
+			console.log(error);
+			setError(error.message);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	//set up the update project values
+	const editTask = (
+		id: string,
+		name: string,
+		description: string,
+		status: Status
+	) => {
+		setEditName(name);
+		setEditDescription(description);
+		setEditId(id);
+		setEditStatus(status);
+		setShowEditForm(true);
+		console.log("This is a form edit form");
+	};
+
+	//clear the edit form and close it
+	const closeEditForm = () => {
+		setEditName("");
+		setEditDescription("");
+		setEditId("");
+		setShowEditForm(false);
+	};
+
 	const openAddForm = () => {
 		//in case the edit form is open, close and clear it.
-		//closeEditForm();
+		closeEditForm();
 		setShowAddForm(true);
 	};
 
@@ -88,6 +147,18 @@ export default function TasksDashboard({ projectId }: TasksDashboardProps) {
 			{showAddForm && (
 				<TaskAddForm createTask={createTask} closeAddForm={closeAddForm} />
 			)}
+
+			{/* edit task form */}
+			{showEditForm && (
+				<TaskEditForm
+					updateTask={updateTask}
+					editName={editName}
+					editDescription={editDescription}
+					editStatus={editStatus}
+					editId={editId}
+					closeEditForm={closeEditForm}
+				/>
+			)}
 			<div>
 				{/* error */}
 				{error && <div>{error}</div>}
@@ -96,7 +167,7 @@ export default function TasksDashboard({ projectId }: TasksDashboardProps) {
 				{/* task add form */}
 				{/* show tasks */}
 
-				{tasks && <TaskList tasks={tasks} />}
+				{tasks && <TaskList tasks={tasks} editTask={editTask} />}
 			</div>
 		</div>
 	);

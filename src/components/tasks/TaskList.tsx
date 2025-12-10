@@ -1,11 +1,22 @@
-import type { Tasks } from "../../pages/types";
+import type { Status, Tasks } from "../../pages/types";
 import { taskStatusBorder, taskStatusText } from "../../utils/const";
 
 interface TaskListProp {
 	tasks: Tasks[];
+	editTask: (
+		id: string,
+		name: string,
+		description: string,
+		status: Status
+	) => void;
+	deleteTask: (id: string) => void;
 }
 
-export default function TaskList({ tasks }: TaskListProp) {
+export default function TaskList({
+	tasks,
+	editTask,
+	deleteTask,
+}: TaskListProp) {
 	return (
 		<div className="w-full grid grid-cols-1 md:grid-cols-3 gap-2 mt-10">
 			{tasks &&
@@ -26,15 +37,15 @@ export default function TaskList({ tasks }: TaskListProp) {
 								className="mt-auto bg-sky-500 rounded text-center cursor-pointer">
 								See Project
 							</Link> */}
-						{/* <button
-								type="button"
-								onClick={() =>
-									editProject(project._id, project.name, project.description)
-								}
-								className="mt-auto bg-green-500 rounded text-center cursor-pointer">
-								Edit
-							</button>
-							{!confirm || project._id !== DeleteId ? (
+						<button
+							type="button"
+							onClick={() =>
+								editTask(task._id, task.name, task.description, task.status)
+							}
+							className="mt-auto bg-green-500 rounded text-center cursor-pointer">
+							Edit
+						</button>
+						{/*{!confirm || project._id !== DeleteId ? (
 								<button
 									type="button"
 									onClick={() => openConfirmBox(project._id)}
