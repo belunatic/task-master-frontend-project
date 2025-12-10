@@ -8,7 +8,6 @@ interface AuthContextType {
 	user: User | null;
 	setUser: (user: User) => void;
 	logIn: (user: User, token: string) => void;
-	register: (username: string, email: string, password: string) => void;
 	logOut: () => void;
 	token: string | null;
 	setToken: (token: string) => void;
@@ -99,12 +98,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 		}
 	};
 
-	const register = async (
-		username: string,
-		email: string,
-		password: string
-	) => {};
-
 	const logOut = () => {
 		setUser(null);
 		setToken(null);
@@ -115,7 +108,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
 	return (
 		<AuthContext.Provider
-			value={{ user, setUser, logIn, register, logOut, token, setToken }}>
+			value={{ user, setUser, logIn, logOut, token, setToken }}>
 			{children}
 		</AuthContext.Provider>
 	);
