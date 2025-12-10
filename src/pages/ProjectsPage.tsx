@@ -106,6 +106,7 @@ export default function ProjectsPage() {
 		setEditDescription(description);
 		setEditId(id);
 		setShowEditForm(true);
+		setShowAddForm(false);
 		console.log("This is a form edit form");
 	};
 

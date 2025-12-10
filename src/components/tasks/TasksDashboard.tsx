@@ -120,6 +120,7 @@ export default function TasksDashboard({ projectId }: TasksDashboardProps) {
 		setEditId(id);
 		setEditStatus(status);
 		setShowEditForm(true);
+		setShowAddForm(false);
 		console.log("This is a form edit form");
 	};
 
