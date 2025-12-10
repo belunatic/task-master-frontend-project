@@ -103,18 +103,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 		username: string,
 		email: string,
 		password: string
-	) => {
-		try {
-			console.log({ username, email, password });
-			await apiClient.post("/api/users/register", {
-				username,
-				email,
-				password,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	) => {};
 
 	const logOut = () => {
 		setUser(null);

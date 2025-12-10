@@ -62,8 +62,13 @@ function AuthPage() {
 			setError("");
 			setLoading(true);
 			// api call here
-			await register(username, email, password);
-			navigate("/");
+			await apiClient.post("/api/users/register", {
+				username,
+				email,
+				password,
+			});
+			//show login page
+			setShowRegister(false);
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
@@ -82,7 +87,7 @@ function AuthPage() {
 
 			{/* ERROR  */}
 
-			{error && <div>{error}</div>}
+			{error && <div className="text-red-500 pt-2">{error}</div>}
 
 			{/* FORM  */}
 
