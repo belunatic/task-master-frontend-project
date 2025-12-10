@@ -1,4 +1,4 @@
-import type { Status, Tasks } from "../../pages/types";
+import type { Status, Tasks } from "../../types";
 import { taskStatusBorder, taskStatusText } from "../../utils/const";
 import { useState } from "react";
 

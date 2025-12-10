@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "../clients/api";
 import { useParams } from "react-router-dom";
-import type { Project } from "./types";
+import type { Project } from "../types";
 import TasksDashboard from "../components/tasks/TasksDashboard";
 
 export default function ProjectDetailsPage() {

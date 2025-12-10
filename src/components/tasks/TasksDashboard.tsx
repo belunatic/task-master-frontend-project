@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "../../clients/api";
 import TaskAddForm from "./TaskAddForm";
-import type { Status, Tasks, TasksDashboardProps } from "../../pages/types";
+import type { Status, Tasks, TasksDashboardProps } from "../../types";
 import TaskList from "./TaskList";
 import TaskEditForm from "./TaskEditForm";
 

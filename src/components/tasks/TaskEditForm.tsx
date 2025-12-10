@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Status } from "../../pages/types";
+import type { Status } from "../../types";
 
 interface TaskAddFormProps {
 	updateTask: (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "../clients/api";
-import type { Project } from "./types";
+import type { Project } from "../types";
 import ProjectAddForm from "../components/projects/ProjectAddForm";
 import ProjectList from "../components/projects/ProjectList";
 import ProjectEditForm from "../components/projects/ProjectEditForm";

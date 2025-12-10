@@ -16,3 +16,10 @@ export interface Tasks {
 export interface TasksDashboardProps {
 	projectId: string;
 }
+
+export interface User {
+	_id: string;
+	username: string;
+	email: string;
+	githubId?: string;
+}
