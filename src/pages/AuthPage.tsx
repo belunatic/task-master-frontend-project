@@ -10,6 +10,11 @@ function AuthPage() {
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [registerValidation, setRegisterValidation] = useState({
+		username: false,
+		email: false,
+		password: false,
+	});
 
 	//context
 	const { logIn, register, setToken, setUser } = useContext(AuthContext);
@@ -43,19 +48,27 @@ function AuthPage() {
 	const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
 		try {
 			e.preventDefault();
+			//remove validation text
+			setRegisterValidation({ username: false, email: false, password: false });
+			if (username === "") {
+				return setRegisterValidation((prev) => ({ ...prev, username: true }));
+			}
+			if (!/.+@.+\..+/.test(email)) {
+				return setRegisterValidation((prev) => ({ ...prev, email: true }));
+			}
+			if (password.length <= 7) {
+				return setRegisterValidation((prev) => ({ ...prev, password: true }));
+			}
 			setError("");
-
 			setLoading(true);
-
 			// api call here
 			await register(username, email, password);
-			navigate("/auth");
+			navigate("/");
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
-			console.error(error.message);
-
-			setError(error.message);
+			console.error(error.response.data.message);
+			setError(error.response.data.message);
 		} finally {
 			setLoading(false);
 		}
@@ -84,11 +97,16 @@ function AuthPage() {
 						<input
 							type="text"
 							name="username"
-							id=""
+							id="username"
 							value={username}
 							onChange={(e) => setUsername(e.target.value)}
 							className="ml-2 border rounded"
 						/>
+						{registerValidation.username && (
+							<p className="text-sm text-red-500 py-1">
+								Please enter a username
+							</p>
+						)}
 					</label>
 
 					<label htmlFor="email">
@@ -96,11 +114,15 @@ function AuthPage() {
 						<input
 							type="text"
 							name="email"
-							id=""
+							id="email"
 							value={email}
+							required
 							onChange={(e) => setEmail(e.target.value)}
 							className="ml-10 border rounded"
 						/>
+						{registerValidation.email && (
+							<p className="text-sm text-red-500 py-1">Invalid Email</p>
+						)}
 					</label>
 
 					<label htmlFor="password">
@@ -108,11 +130,17 @@ function AuthPage() {
 						<input
 							type="password"
 							name="password"
-							id=""
+							required
+							id="password"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 							className="ml-3 border rounded"
 						/>
+						{registerValidation.password && (
+							<p className="text-sm text-red-500 py-1">
+								password must be 8 character long
+							</p>
+						)}
 					</label>
 
 					<input
