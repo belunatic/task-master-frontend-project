@@ -47,12 +47,17 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 		}
 	});
 
-	// useEffect(() => {
-	//   try {
-	//   } catch (error) {
-	//     console.error(error);
-	//   }
-	// }, []);
+	//check for login user
+
+	useEffect(() => {
+		try {
+			if (token) {
+				apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	}, [token]);
 
 	const logIn = async (email: string, password: string) => {
 		try {
@@ -63,7 +68,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 			//save the locally
 			localStorage.setItem("token", JSON.stringify(res.data.token));
 			localStorage.setItem("user", JSON.stringify(res.data.dbUser));
-
 			apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 		} catch (error) {
 			console.log(error);
