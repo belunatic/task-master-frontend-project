@@ -92,7 +92,23 @@ export default function TasksDashboard({ projectId }: TasksDashboardProps) {
 		}
 	};
 
-	//set up the update project values
+	//update new Task
+	const deleteTask = async (id: string) => {
+		try {
+			setLoading(true);
+			const res = await apiClient.delete(`/api/tasks/${id}`);
+			setTasks((prev) => prev.filter((task) => task._id !== id));
+			console.log(res.data);
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (error: any) {
+			console.log(error);
+			setError(error.message);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	//set up the update task values
 	const editTask = (
 		id: string,
 		name: string,
@@ -167,7 +183,9 @@ export default function TasksDashboard({ projectId }: TasksDashboardProps) {
 				{/* task add form */}
 				{/* show tasks */}
 
-				{tasks && <TaskList tasks={tasks} editTask={editTask} />}
+				{tasks && (
+					<TaskList tasks={tasks} editTask={editTask} deleteTask={deleteTask} />
+				)}
 			</div>
 		</div>
 	);
