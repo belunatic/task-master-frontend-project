@@ -46,6 +46,7 @@ export default function ProjectsPage() {
 				description,
 			});
 			setProjects((prev) => [...prev, res.data]);
+			setShowAddForm(false);
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			console.log(error);
