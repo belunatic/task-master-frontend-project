@@ -80,7 +80,7 @@ function AuthPage() {
 	};
 
 	return (
-		<div className="text-white flex flex-col items-center justify-center">
+		<div className="text-white flex flex-col items-center justify-center gap-y-4">
 			<h1 className="text-3xl font-bold mt-10 text-center">
 				Start managing your projects.
 			</h1>
@@ -151,7 +151,7 @@ function AuthPage() {
 					<input
 						type="submit"
 						value="Register"
-						className="border py-2 px-4 rounded"
+						className="border py-2 px-4 rounded cursor-pointer"
 					/>
 
 					{/* LOADING  */}
@@ -191,7 +191,7 @@ function AuthPage() {
 					<input
 						type="submit"
 						value="Login"
-						className="border py-2 px-4 rounded"
+						className="border py-2 px-4 rounded cursor-pointer"
 					/>
 
 					{/* LOADING  */}
