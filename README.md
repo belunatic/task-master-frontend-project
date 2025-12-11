@@ -30,13 +30,6 @@ This application allows individuals to create accounts, manage projects, and per
 - **Responsive Design**  
   Works seamlessly across desktop and mobile devices.
 
-## 🛠️ Tech Stack
-
-- **Frontend:** HTML, CSS, JavaScript (React)
-- **Backend:** Node.js
-- **Database:** MongoDB
-- **Version Control:** Git & GitHub
-
 ## Backend Repo
 
 [Task Master Backend Repo Link](https://github.com/belunatic/task-master-backend-project)
@@ -45,7 +38,7 @@ This application allows individuals to create accounts, manage projects, and per
 
 - React — UI library
 - TypeScript — static types (optional; replace with JavaScript if preferred)
-- Vite or Create React App — dev tooling and bundling
+- Vite — dev tooling and bundling
 - React Router — client-side routing
 - State management — React Context / Redux / Zustand (pick one)
 - Axios — HTTP client for API calls
