@@ -67,7 +67,7 @@ export default function TaskEditForm({
 			<select
 				name="project-status"
 				className="border px-2 py-1 bg-zinc-900"
-				value={description}
+				value={status}
 				onChange={(e) => setStatus(e.target.value as Status)}>
 				<option value="todo" selected={status === "todo"}>
 					To Do
