@@ -57,3 +57,13 @@ This application allows individuals to create accounts, manage projects, and per
 2. Install dependencies: `npm install`
 3. create an `.env` file on the root and add this `VITE_BACKEND_URL = http://localhost:4000`
 4. Start dev server: `npm run dev`
+
+## Dependencies
+
+- Tailwindcss
+- Vite
+- Typescript
+- jwtDecode
+- React-Route-Dom
+- Axios
+- React
