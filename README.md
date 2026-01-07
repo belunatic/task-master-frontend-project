@@ -5,6 +5,9 @@
 A **Task Management System** designed to help users stay organized and productive.  
 This application allows individuals to create accounts, manage projects, and perform full CRUD (Create, Read, Update, Delete) operations on both projects and tasks.
 
+[Start the Back-end](https://task-master-frontend-project.netlify.app/projects)
+[Front-end Link](https://task-master-frontend-project.netlify.app/projects)
+
 ## Features
 
 - **User Authentication**  
